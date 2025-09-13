@@ -1,0 +1,43 @@
+{
+  "name": "Smart Crop Advisory System",
+  "short_name": "Crop Advisory",
+  "description": "AI-powered farming assistant for Indian farmers with multilingual support",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f4f0",
+  "theme_color": "#2d5a27",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/placeholder.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/placeholder.svg",
+      "type": "image/svg+xml", 
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["agriculture", "productivity", "utilities"],
+  "lang": "en-IN",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "offline_capable": true,
+  "scope": "/",
+  "screenshots": [
+    {
+      "src": "/placeholder.svg",
+      "type": "image/svg+xml",
+      "sizes": "540x720",
+      "label": "Smart Crop Advisory Dashboard"
+    }
+  ]
+}
