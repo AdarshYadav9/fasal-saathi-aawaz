@@ -88,59 +88,59 @@ export const Dashboard = ({ language, onNavigate }: DashboardProps) => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto p-4 space-y-6">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       {/* Hero Section */}
-      <div className="text-center bg-gradient-sky rounded-2xl p-8 shadow-medium">
-        <h1 className="text-4xl font-bold text-primary mb-4">
+      <div className="text-center bg-gradient-sky rounded-2xl p-6 sm:p-8 shadow-medium">
+        <h1 className="text-3xl sm:text-4xl font-bold text-primary mb-4">
           {t.welcome}
         </h1>
-        <p className="text-lg text-muted-foreground mb-6">
+        <p className="text-base sm:text-lg text-muted-foreground mb-6">
           {t.subtitle}
         </p>
-        <div className="text-6xl mb-4">🌾</div>
+        <div className="text-5xl sm:text-6xl mb-4">🌾</div>
       </div>
 
       {/* Quick Actions */}
-      <Card className="p-6 shadow-medium">
-        <h2 className="text-2xl font-bold text-primary mb-4">{t.quickActions}</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <Card className="p-4 sm:p-6 shadow-medium">
+        <h2 className="text-xl sm:text-2xl font-bold text-primary mb-4">{t.quickActions}</h2>
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {quickActionItems.map((item) => (
             <Button
               key={item.id}
               variant={item.variant}
-              size="xl"
-              className="h-20 flex flex-col gap-2"
+              size="default"
+              className="h-auto py-3 sm:py-4 flex flex-col gap-1 sm:gap-2 text-center"
               onClick={() => onNavigate(item.id)}
             >
-              <item.icon className="w-6 h-6" />
-              <span className="text-sm font-medium">{item.label}</span>
+              <item.icon className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="text-xs sm:text-sm font-medium">{item.label}</span>
             </Button>
           ))}
         </div>
       </Card>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Weather Card */}
-        <Card className="p-6 shadow-medium">
-          <h3 className="text-xl font-bold text-primary mb-4 flex items-center gap-2">
-            <Sun className="w-5 h-5" />
+        <Card className="p-4 sm:p-6 shadow-medium">
+          <h3 className="text-lg sm:text-xl font-bold text-primary mb-4 flex items-center gap-2">
+            <Sun className="w-4 h-4 sm:w-5 sm:h-5" />
             {t.todaysWeather}
           </h3>
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-muted-foreground">{t.weatherLocation}</span>
-              <Badge variant="outline">{t.temperature}</Badge>
+              <span className="text-sm text-muted-foreground">{t.weatherLocation}</span>
+              <Badge variant="outline" className="text-sm">{t.temperature}</Badge>
             </div>
-            <div className="text-2xl font-bold text-center py-4">
+            <div className="text-xl sm:text-2xl font-bold text-center py-3 sm:py-4">
               ⛅ {t.condition}
             </div>
-            <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="grid grid-cols-2 gap-3 text-xs sm:text-sm">
               <div className="flex items-center gap-2">
-                <Thermometer className="w-4 h-4 text-muted-foreground" />
+                <Thermometer className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground" />
                 {t.humidity}
               </div>
               <div className="flex items-center gap-2">
-                <CloudRain className="w-4 h-4 text-muted-foreground" />
+                <CloudRain className="w-3 h-3 sm:w-4 sm:h-4 text-muted-foreground" />
                 {t.rainfall}
               </div>
             </div>
@@ -148,15 +148,15 @@ export const Dashboard = ({ language, onNavigate }: DashboardProps) => {
         </Card>
 
         {/* Recent Updates */}
-        <Card className="p-6 shadow-medium">
-          <h3 className="text-xl font-bold text-primary mb-4">
+        <Card className="p-4 sm:p-6 shadow-medium">
+          <h3 className="text-lg sm:text-xl font-bold text-primary mb-4">
             {t.recentUpdates}
           </h3>
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             {t.updates.map((update, index) => (
-              <div key={index} className="flex items-start gap-3 p-3 bg-muted/30 rounded-lg">
+              <div key={index} className="flex items-start gap-2 sm:gap-3 p-3 bg-muted/30 rounded-lg">
                 <div className="w-2 h-2 bg-accent rounded-full mt-2 flex-shrink-0"></div>
-                <p className="text-sm text-muted-foreground">{update}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">{update}</p>
               </div>
             ))}
           </div>
@@ -165,8 +165,8 @@ export const Dashboard = ({ language, onNavigate }: DashboardProps) => {
 
       {/* Get Started Section */}
       <Card className="p-6 text-center bg-gradient-earth shadow-medium">
-        <h3 className="text-2xl font-bold text-primary mb-2">{t.getStarted}</h3>
-        <p className="text-muted-foreground mb-4">
+        <h3 className="text-xl sm:text-2xl font-bold text-primary mb-2">{t.getStarted}</h3>
+        <p className="text-sm sm:text-base text-muted-foreground mb-4">
           {language === 'hi' 
             ? 'स्मार्ट खुला के साथ अपनी कृषि यात्रा शुरू करें'
             : language === 'pa'
@@ -176,8 +176,9 @@ export const Dashboard = ({ language, onNavigate }: DashboardProps) => {
         </p>
         <Button
           variant="hero"
-          size="lg"
+          size="default"
           onClick={() => onNavigate('chatbot')}
+          className="text-sm sm:text-base"
         >
           {t.askAI} 🤖
         </Button>

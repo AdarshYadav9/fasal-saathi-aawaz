@@ -198,20 +198,20 @@ export const CropRecommendation = ({ language }: CropRecommendationProps) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4 space-y-6">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-primary mb-2 flex items-center justify-center gap-2">
+      <div className="text-center mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-2 flex items-center justify-center gap-2">
           🌾 {t.title}
         </h1>
-        <p className="text-muted-foreground">{t.subtitle}</p>
+        <p className="text-sm sm:text-base text-muted-foreground">{t.subtitle}</p>
       </div>
 
       {/* Form */}
-      <Card className="p-6 shadow-medium">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <Card className="p-4 sm:p-6 shadow-medium">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div className="space-y-2">
-            <Label htmlFor="location" className="flex items-center gap-2">
+            <Label htmlFor="location" className="flex items-center gap-2 text-sm sm:text-base">
               <MapPin className="w-4 h-4" />
               {t.location}
             </Label>
@@ -220,75 +220,77 @@ export const CropRecommendation = ({ language }: CropRecommendationProps) => {
               placeholder={t.locationPlaceholder}
               value={formData.location}
               onChange={(e) => setFormData({...formData, location: e.target.value})}
+              className="text-sm sm:text-base"
             />
           </div>
 
           <div className="space-y-2">
-            <Label className="flex items-center gap-2">
+            <Label className="flex items-center gap-2 text-sm sm:text-base">
               <Thermometer className="w-4 h-4" />
               {t.soilType}
             </Label>
             <Select onValueChange={(value) => setFormData({...formData, soilType: value})}>
-              <SelectTrigger>
+              <SelectTrigger className="text-sm sm:text-base">
                 <SelectValue placeholder={t.soilPlaceholder} />
               </SelectTrigger>
               <SelectContent>
                 {(soilTypes[language as keyof typeof soilTypes] || soilTypes.en).map((soil, index) => (
-                  <SelectItem key={index} value={soil}>{soil}</SelectItem>
+                  <SelectItem key={index} value={soil} className="text-sm sm:text-base">{soil}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
 
           <div className="space-y-2">
-            <Label className="flex items-center gap-2">
+            <Label className="flex items-center gap-2 text-sm sm:text-base">
               <Droplets className="w-4 h-4" />
               {t.cropType}
             </Label>
             <Select onValueChange={(value) => setFormData({...formData, cropType: value})}>
-              <SelectTrigger>
+              <SelectTrigger className="text-sm sm:text-base">
                 <SelectValue placeholder={t.cropPlaceholder} />
               </SelectTrigger>
               <SelectContent>
                 {(cropCategories[language as keyof typeof cropCategories] || cropCategories.en).map((crop, index) => (
-                  <SelectItem key={index} value={crop}>{crop}</SelectItem>
+                  <SelectItem key={index} value={crop} className="text-sm sm:text-base">{crop}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
 
           <div className="space-y-2">
-            <Label className="flex items-center gap-2">
+            <Label className="flex items-center gap-2 text-sm sm:text-base">
               <Calendar className="w-4 h-4" />
               {t.season}
             </Label>
             <Select onValueChange={(value) => setFormData({...formData, season: value})}>
-              <SelectTrigger>
+              <SelectTrigger className="text-sm sm:text-base">
                 <SelectValue placeholder={t.seasonPlaceholder} />
               </SelectTrigger>
               <SelectContent>
                 {(seasons[language as keyof typeof seasons] || seasons.en).map((season, index) => (
-                  <SelectItem key={index} value={season}>{season}</SelectItem>
+                  <SelectItem key={index} value={season} className="text-sm sm:text-base">{season}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
         </div>
 
-        <div className="mt-6 space-y-2">
-          <Label htmlFor="additional">{t.additionalInfo}</Label>
+        <div className="mt-4 sm:mt-6 space-y-2">
+          <Label htmlFor="additional" className="text-sm sm:text-base">{t.additionalInfo}</Label>
           <Textarea
             id="additional"
             placeholder={t.additionalPlaceholder}
             value={formData.additionalInfo}
             onChange={(e) => setFormData({...formData, additionalInfo: e.target.value})}
+            className="text-sm sm:text-base"
           />
         </div>
 
         <Button
           variant="hero"
-          size="lg"
-          className="w-full mt-6"
+          size="default"
+          className="w-full mt-4 sm:mt-6 text-sm sm:text-base"
           onClick={generateRecommendation}
           disabled={isLoading || !formData.location || !formData.soilType}
         >
@@ -298,18 +300,18 @@ export const CropRecommendation = ({ language }: CropRecommendationProps) => {
 
       {/* Recommendation Results */}
       {recommendation && (
-        <Card className="p-6 shadow-strong bg-gradient-sky border-success/20">
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-2xl font-bold text-primary">{t.recommendedCrop}</h3>
-              <Badge className="bg-success text-success-foreground text-lg px-4 py-2">
+        <Card className="p-4 sm:p-6 shadow-strong bg-gradient-sky border-success/20">
+          <div className="space-y-4 sm:space-y-6">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <h3 className="text-xl sm:text-2xl font-bold text-primary">{t.recommendedCrop}</h3>
+              <Badge className="bg-success text-success-foreground text-base sm:text-lg px-3 py-1 sm:px-4 sm:py-2">
                 {t.confidence}: {recommendation.confidence}%
               </Badge>
             </div>
 
-            <div className="text-center p-4 bg-success/10 rounded-lg">
-              <div className="text-3xl font-bold text-success mb-2">{recommendation.crop}</div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+            <div className="text-center p-3 sm:p-4 bg-success/10 rounded-lg">
+              <div className="text-2xl sm:text-3xl font-bold text-success mb-2">{recommendation.crop}</div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4 text-sm">
                 <div>
                   <strong>{t.expectedYield}:</strong> {recommendation.expectedYield}
                 </div>
@@ -319,26 +321,28 @@ export const CropRecommendation = ({ language }: CropRecommendationProps) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               <div>
-                <h4 className="font-semibold text-primary mb-3">{t.reasons}</h4>
+                <h4 className="font-semibold text-base sm:text-lg text-primary mb-2 sm:mb-3 flex items-center gap-2">
+                  💊 {t.reasons}
+                </h4>
                 <ul className="space-y-2">
                   {recommendation.reasons.map((reason, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <span className="text-success font-bold">✓</span>
-                      <span className="text-sm">{reason}</span>
+                    <li key={index} className="text-sm bg-card p-2 rounded border-l-4 border-destructive">
+                      {reason}
                     </li>
                   ))}
                 </ul>
               </div>
 
               <div>
-                <h4 className="font-semibold text-primary mb-3">{t.tips}</h4>
+                <h4 className="font-semibold text-base sm:text-lg text-primary mb-2 sm:mb-3 flex items-center gap-2">
+                  💡 {t.tips}
+                </h4>
                 <ul className="space-y-2">
                   {recommendation.tips.map((tip, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <span className="text-warning font-bold">💡</span>
-                      <span className="text-sm">{tip}</span>
+                    <li key={index} className="text-sm bg-card p-2 rounded border-l-4 border-warning">
+                      {tip}
                     </li>
                   ))}
                 </ul>

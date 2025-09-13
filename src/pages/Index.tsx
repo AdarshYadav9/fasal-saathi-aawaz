@@ -50,8 +50,8 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto p-4">
+    <div className="min-h-screen bg-background text-base">
+      <div className="container mx-auto px-2 sm:px-4 py-4">
         <Navigation 
           currentView={currentView} 
           onViewChange={handleViewChange}

@@ -261,48 +261,48 @@ export const MarketPrices = ({ language }: MarketPricesProps) => {
   const uniqueCrops = Array.from(new Set(priceData.map(item => item.crop)));
 
   return (
-    <div className="max-w-6xl mx-auto p-4 space-y-6">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
       {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-primary mb-2 flex items-center justify-center gap-2">
+      <div className="text-center mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-2 flex items-center justify-center gap-2">
           📈 {t.title}
         </h1>
-        <p className="text-muted-foreground">{t.subtitle}</p>
+        <p className="text-sm sm:text-base text-muted-foreground">{t.subtitle}</p>
       </div>
 
       {/* Filters */}
       <Card className="p-4 shadow-medium">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
               placeholder={t.searchPlaceholder}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
+              className="pl-10 text-sm sm:text-base"
             />
           </div>
 
           <Select value={selectedMarket} onValueChange={setSelectedMarket}>
-            <SelectTrigger>
+            <SelectTrigger className="text-sm sm:text-base">
               <SelectValue placeholder={t.selectMarket} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">{t.allMarkets}</SelectItem>
+              <SelectItem value="all" className="text-sm sm:text-base">{t.allMarkets}</SelectItem>
               {uniqueMarkets.map((market) => (
-                <SelectItem key={market} value={market}>{market}</SelectItem>
+                <SelectItem key={market} value={market} className="text-sm sm:text-base">{market}</SelectItem>
               ))}
             </SelectContent>
           </Select>
 
           <Select value={selectedCrop} onValueChange={setSelectedCrop}>
-            <SelectTrigger>
+            <SelectTrigger className="text-sm sm:text-base">
               <SelectValue placeholder={t.selectCrop} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">{t.allCrops}</SelectItem>
+              <SelectItem value="all" className="text-sm sm:text-base">{t.allCrops}</SelectItem>
               {uniqueCrops.map((crop) => (
-                <SelectItem key={crop} value={crop}>{crop}</SelectItem>
+                <SelectItem key={crop} value={crop} className="text-sm sm:text-base">{crop}</SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -311,7 +311,7 @@ export const MarketPrices = ({ language }: MarketPricesProps) => {
             variant="field"
             onClick={refreshPrices}
             disabled={isLoading}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 text-sm sm:text-base"
           >
             <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
             {t.refreshPrices}
@@ -321,7 +321,7 @@ export const MarketPrices = ({ language }: MarketPricesProps) => {
 
       {/* Price Cards */}
       {isLoading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[...Array(6)].map((_, i) => (
             <Card key={i} className="p-4 animate-pulse">
               <div className="h-4 bg-muted rounded w-3/4 mb-2"></div>
@@ -331,21 +331,21 @@ export const MarketPrices = ({ language }: MarketPricesProps) => {
           ))}
         </div>
       ) : filteredData.length === 0 ? (
-        <Card className="p-8 text-center">
-          <div className="text-4xl mb-4">📊</div>
-          <p className="text-muted-foreground">{t.noDataFound}</p>
+        <Card className="p-6 text-center">
+          <div className="text-3xl sm:text-4xl mb-4">📊</div>
+          <p className="text-sm sm:text-base text-muted-foreground">{t.noDataFound}</p>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredData.map((item, index) => (
             <Card key={index} className="p-4 hover:shadow-medium transition-all duration-300">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-bold text-lg text-primary">{item.crop}</h3>
+                  <h3 className="font-bold text-base sm:text-lg text-primary">{item.crop}</h3>
                   {getTrendIcon(item.trend)}
                 </div>
 
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
                   <MapPin className="w-4 h-4" />
                   {item.market}
                 </div>
@@ -358,12 +358,12 @@ export const MarketPrices = ({ language }: MarketPricesProps) => {
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center justify-between text-xs sm:text-sm">
                     <span className="text-muted-foreground">{t.previousPrice}:</span>
                     <span>{formatPrice(item.previousPrice)}</span>
                   </div>
 
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center justify-between text-xs sm:text-sm">
                     <span>{t.change}:</span>
                     <span className={`font-medium ${getTrendColor(item.trend)}`}>
                       {item.change > 0 ? '+' : ''}{item.change.toFixed(2)}%
@@ -388,8 +388,8 @@ export const MarketPrices = ({ language }: MarketPricesProps) => {
 
       {/* Offline Sync Notice */}
       {!navigator.onLine && (
-        <Card className="p-4 bg-warning/10 border-warning/20">
-          <div className="flex items-center gap-2 text-warning-foreground">
+        <Card className="p-3 sm:p-4 bg-warning/10 border-warning/20">
+          <div className="flex items-center gap-2 text-warning-foreground text-sm sm:text-base">
             <RefreshCw className="w-4 h-4" />
             <span className="text-sm">{t.syncOffline}</span>
           </div>

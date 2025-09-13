@@ -45,6 +45,18 @@ export const VoiceChatbot = ({ language }: VoiceChatbotProps) => {
       "ਤੁਹਾਡੇ ਖੇਤਰ ਵਿੱਚ ਚਾਵਲ ਦਾ ਮੌਜੂਦਾ ਬਾਜ਼ਾਰ ਭਾਅ ₹2,100 ਪ੍ਰਤੀ ਕੁਇੰਟਲ ਹੈ।",
       "ਮੌਸਮ ਪੂਰਵਾਨੁਮਾਨ ਇਸ ਹਫ਼ਤੇ ਵਧੀਆ ਬਾਰਿਸ਼ ਦਿਖਾ ਰਿਹਾ ਹੈ, ਬੀਜਾਈ ਲਈ ਬਿਲਕੁਲ ਠੀਕ।",
     ],
+    mr: [
+      "तुमच्या स्थानानुसार, चांगल्या परिणामांसाठी नोव्हेंबरमध्ये गहू लावण्याची शिफारस करतो.",
+      "कीटक नियंत्रणासाठी, वाढीच्या हंगामात दर 15 दिवसांनी कडुलिंबाच्या तेलाची फवारणी करून पहा.",
+      "तुमच्या परिसरात तांदळाचा सध्याचा बाजारभाव ₹2,100 प्रति क्विंटल आहे.",
+      "हवामान अंदाजानुसार या आठवड्यात चांगला पाऊस अपेक्षित आहे, पेरणीच्या हंगामासाठी उत्तम.",
+    ],
+    ta: [
+      "உங்கள் இருப்பிடத்தின் அடிப்படையில், சிறந்த விளைவுகளுக்கு நவம்பரில் கோதுமை பயிரிட பரிந்துரைக்கிறேன்.",
+      "பூச்சி கட்டுப்படுத்த, வளரும் பருவத்தில் 15 நாட்களுக்கு ஒருமுறை வேப்ப எண்ணெய் தெளிக்க முயற்சிக்கவும்.",
+      "உங்கள் பகுதியில் அரிசியின் தற்போதைய சந்தை விலை குவிண்டாலுக்கு ₹2,100 ஆகும்.",
+      "வானிலை முன்னறிவிப்பு இந்த வாரம் நல்ல மழையைக் காட்டுகிறது, விதைப்புப் பருவத்திற்கு ஏற்றது.",
+    ],
   };
 
   useEffect(() => {
@@ -53,7 +65,7 @@ export const VoiceChatbot = ({ language }: VoiceChatbotProps) => {
       const recognition = new (window as any).webkitSpeechRecognition();
       recognition.continuous = false;
       recognition.interimResults = false;
-      recognition.lang = language === 'hi' ? 'hi-IN' : language === 'pa' ? 'pa-IN' : 'en-US';
+      recognition.lang = language === 'hi' ? 'hi-IN' : language === 'pa' ? 'pa-IN' : language === 'gu' ? 'gu-IN' : language === 'mr' ? 'mr-IN' : language === 'ta' ? 'ta-IN' : 'en-US';
       
       recognition.onresult = (event: any) => {
         const transcript = event.results[0][0].transcript;
@@ -133,7 +145,7 @@ export const VoiceChatbot = ({ language }: VoiceChatbotProps) => {
   const speakText = (text: string) => {
     if (synthRef.current && !isSpeaking) {
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = language === 'hi' ? 'hi-IN' : language === 'pa' ? 'pa-IN' : 'en-US';
+      utterance.lang = language === 'hi' ? 'hi-IN' : language === 'pa' ? 'pa-IN' : language === 'gu' ? 'gu-IN' : language === 'mr' ? 'mr-IN' : language === 'ta' ? 'ta-IN' : 'en-US';
       utterance.rate = 0.9;
       utterance.pitch = 1;
 
@@ -152,23 +164,23 @@ export const VoiceChatbot = ({ language }: VoiceChatbotProps) => {
   };
 
   return (
-    <div className="flex flex-col h-full max-w-2xl mx-auto p-4">
+    <div className="flex flex-col h-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
       {/* Header */}
-      <div className="mb-4">
-        <h2 className="text-2xl font-bold text-primary mb-2">
+      <div className="mb-3 sm:mb-4">
+        <h2 className="text-xl sm:text-2xl font-bold text-primary mb-2">
           🤖 Smart Advisory Assistant
         </h2>
         <div className="flex items-center gap-2">
-          <Badge variant="outline">
-            {language === 'hi' ? 'हिंदी' : language === 'pa' ? 'ਪੰਜਾਬੀ' : 'English'}
+          <Badge variant="outline" className="text-xs sm:text-sm">
+            {language === 'hi' ? 'हिंदी' : language === 'pa' ? 'ਪੰਜਾਬੀ' : language === 'gu' ? 'ગુજરાતી' : 'English'}
           </Badge>
           {isProcessing && (
-            <Badge className="bg-voice-processing text-white animate-pulse">
+            <Badge className="bg-voice-processing text-white animate-pulse text-xs sm:text-sm">
               Processing...
             </Badge>
           )}
           {isSpeaking && (
-            <Badge className="bg-voice-listening text-white">
+            <Badge className="bg-voice-listening text-white text-xs sm:text-sm">
               Speaking...
             </Badge>
           )}
@@ -176,15 +188,17 @@ export const VoiceChatbot = ({ language }: VoiceChatbotProps) => {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 space-y-4 mb-4 overflow-y-auto max-h-96">
+      <div className="flex-1 space-y-3 sm:space-y-4 mb-4 overflow-y-auto max-h-80 sm:max-h-96">
         {messages.length === 0 && (
-          <Card className="p-6 text-center bg-muted/50">
-            <div className="text-4xl mb-2">🌱</div>
-            <p className="text-muted-foreground">
+          <Card className="p-4 sm:p-6 text-center bg-muted/50">
+            <div className="text-3xl sm:text-4xl mb-2">🌱</div>
+            <p className="text-sm sm:text-base text-muted-foreground">
               {language === 'hi' 
                 ? 'मुझसे फसल की सलाह के लिए पूछें! नीचे माइक बटन दबाएं।'
                 : language === 'pa'
                 ? 'ਮੈਨੂੰ ਫਸਲ ਦੀ ਸਲਾਹ ਲਈ ਪੁੱਛੋ! ਹੇਠਾਂ ਮਾਈਕ ਬਟਨ ਦਬਾਓ।'
+                : language === 'gu'
+                ? 'મને પાક સલાહ માટે પૂછો! નીચે માઇક બટન દબાવો.'
                 : 'Ask me for crop advice! Press the mic button below.'
               }
             </p>
@@ -196,13 +210,13 @@ export const VoiceChatbot = ({ language }: VoiceChatbotProps) => {
             key={message.id}
             className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
           >
-            <Card className={`p-4 max-w-xs lg:max-w-md ${
+            <Card className={`p-3 sm:p-4 max-w-[calc(100%-4rem)] ${
               message.sender === 'user' 
                 ? 'bg-primary text-primary-foreground ml-4' 
                 : 'bg-card mr-4'
             }`}>
-              <p className="text-sm">{message.text}</p>
-              <p className="text-xs opacity-70 mt-2">
+              <p className="text-sm sm:text-base">{message.text}</p>
+              <p className="text-xs opacity-70 mt-1 sm:mt-2">
                 {message.timestamp.toLocaleTimeString()}
               </p>
             </Card>
@@ -211,22 +225,22 @@ export const VoiceChatbot = ({ language }: VoiceChatbotProps) => {
       </div>
 
       {/* Voice Controls */}
-      <div className="flex items-center justify-center gap-4 p-4 bg-muted/30 rounded-lg">
+      <div className="flex items-center justify-center gap-3 sm:gap-4 p-3 sm:p-4 bg-muted/30 rounded-lg">
         <Button
           variant={isListening ? "warning" : "voice"}
-          size="icon-lg"
+          size="icon"
           onClick={isListening ? stopListening : startListening}
           disabled={isProcessing}
           className={isListening ? "animate-pulse" : ""}
         >
-          {isListening ? <MicOff /> : <Mic />}
+          {isListening ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
         </Button>
 
         <div className="flex flex-col items-center">
-          <p className="text-sm font-medium">
+          <p className="text-sm font-medium text-center">
             {isListening 
-              ? (language === 'hi' ? 'सुन रहा हूं...' : language === 'pa' ? 'ਸੁਣ ਰਿਹਾ ਹਾਂ...' : 'Listening...')
-              : (language === 'hi' ? 'बोलने के लिए दबाएं' : language === 'pa' ? 'ਬੋਲਣ ਲਈ ਦਬਾਓ' : 'Press to speak')
+              ? (language === 'hi' ? 'सुन रहा हूं...' : language === 'pa' ? 'ਸੁਣ ਰਿਹਾ ਹਾਂ...' : language === 'gu' ? 'સાંભળી રહ્યો છું...' : language === 'mr' ? 'ऐकत आहे...' : language === 'ta' ? 'கேட்கிறது...' : 'Listening...')
+              : (language === 'hi' ? 'बोलने के लिए दबाएं' : language === 'pa' ? 'ਬੋਲਣ ਲਈ ਦਬਾਓ' : language === 'gu' ? 'બોલવા માટે દબાવો' : language === 'mr' ? 'बोलण्यासाठी दाबा' : language === 'ta' ? 'பேச அழுத்தவும்' : 'Press to speak')
             }
           </p>
           {transcript && (
@@ -236,11 +250,11 @@ export const VoiceChatbot = ({ language }: VoiceChatbotProps) => {
 
         <Button
           variant={isSpeaking ? "warning" : "secondary"}
-          size="icon-lg"
+          size="icon"
           onClick={isSpeaking ? stopSpeaking : () => {}}
           disabled={!isSpeaking}
         >
-          {isSpeaking ? <VolumeX /> : <Volume2 />}
+          {isSpeaking ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
         </Button>
       </div>
     </div>

@@ -254,11 +254,11 @@ export const PestDetection = ({ language }: PestDetectionProps) => {
     <div className="max-w-4xl mx-auto p-4 space-y-6">
       {/* Header */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-primary mb-2 flex items-center justify-center gap-2">
-          <Bug className="w-8 h-8" />
+        <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-2 flex items-center justify-center gap-2">
+          <Bug className="w-6 h-6 sm:w-8 sm:h-8" />
           {t.title}
         </h1>
-        <p className="text-muted-foreground">{t.subtitle}</p>
+        <p className="text-sm sm:text-base text-muted-foreground">{t.subtitle}</p>
       </div>
 
       {/* Image Upload Section */}
@@ -269,14 +269,14 @@ export const PestDetection = ({ language }: PestDetectionProps) => {
               <img
                 src={selectedImage}
                 alt="Selected crop"
-                className="w-full h-64 object-cover rounded-lg shadow-soft"
+                className="w-full h-48 sm:h-64 object-cover rounded-lg shadow-soft"
               />
               {isAnalyzing && (
                 <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-center">
                   <div className="text-white text-center space-y-2">
                     <RefreshCw className="w-8 h-8 animate-spin mx-auto" />
                     <p>{t.analyzing}</p>
-                    <Progress value={analysisProgress} className="w-48" />
+                    <Progress value={analysisProgress} className="w-3/4 max-w-sm" />
                   </div>
                 </div>
               )}
