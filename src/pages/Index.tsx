@@ -7,8 +7,7 @@ import { Dashboard } from '@/components/Dashboard';
 import { VoiceChatbot } from '@/components/VoiceChatbot';
 import { CropRecommendation } from '@/components/CropRecommendation';
 import { PestDetection } from '@/components/PestDetection';
-import { MarketPrices } from '@/components/MarketPrices';
-
+import MarketPrices from '@/components/MarketPrices' ; 
 interface Language {
   code: string;
   name: string;
