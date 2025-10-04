@@ -1,0 +1,10 @@
+Soil_Type,Crop,Season,Description
+Alluvial soil,"Rice, Wheat, Sugarcane, Cotton","Kharif, Rabi","Fertile soil with good water retention"
+Black Soil,"Cotton, Soybean, Sugarcane, Groundnut","Kharif, Rabi","Rich in clay and organic matter"
+Clay soil,"Rice, Wheat, Barley","Rabi","High water retention, good for paddy"
+Red soil,"Groundnut, Millet, Maize, Cotton","Kharif","Well-drained, suitable for dry crops"
+Laterite Soil,"Tea, Coffee, Cashew, Rubber","Year-round","Acidic soil, good for plantation crops"
+Peat Soil,"Rice, Vegetables, Herbs","Kharif","High organic content, good for rice"
+Yellow Soil,"Maize, Soybean, Sunflower","Kharif","Moderately fertile, good drainage"
+Arid Soil,"Millet, Sorghum, Cactus","Kharif","Low rainfall areas, drought-resistant crops"
+Mountain Soil,"Potato, Apple, Cherry","Year-round","Cool climate crops, high altitude"
