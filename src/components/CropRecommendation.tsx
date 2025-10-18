@@ -13,7 +13,7 @@ interface CropRecommendationProps {
 }
 
 interface RecommendationData {
-  location: string;
+  location: string; 
   soilType: string;
   cropType: string;
   season: string;

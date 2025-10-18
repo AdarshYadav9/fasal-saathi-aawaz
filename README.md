@@ -68,7 +68,8 @@ git clone <your-git-url>
 cd smart-crop-advisory
 
 # Install dependencies
-npm install
+npm install 
+# for all the dependencies 
 
 # Start development server
 npm run dev
