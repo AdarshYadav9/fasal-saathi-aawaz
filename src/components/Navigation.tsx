@@ -1,8 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { MessageCircle, Lightbulb, Bug, TrendingUp, Home, Wifi, WifiOff, Menu, LogIn, User } from 'lucide-react';
-import { UserButton } from '@clerk/clerk-react';
+import { MessageCircle, Lightbulb, Bug, TrendingUp, Home, Wifi, WifiOff, Menu } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import {
@@ -18,11 +17,9 @@ interface NavigationProps {
   currentView: string;
   onViewChange: (view: string) => void;
   language: string;
-  isSignedIn?: boolean;
-  onSignInClick?: () => void;
 }
 
-export const Navigation = ({ currentView, onViewChange, language, isSignedIn, onSignInClick }: NavigationProps) => {
+export const Navigation = ({ currentView, onViewChange, language }: NavigationProps) => {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const isMobile = useIsMobile();
 
@@ -96,27 +93,6 @@ export const Navigation = ({ currentView, onViewChange, language, isSignedIn, on
               <><WifiOff className="w-3 h-3 mr-1" /> {t.offline}</>
             )}
           </Badge>
-          {isSignedIn ? (
-            <UserButton
-              appearance={{
-                elements: {
-                  avatarBox: "w-8 h-8 sm:w-10 sm:h-10",
-                  userButtonPopoverCard: "shadow-lg",
-                  userButtonPopoverActionButton: "hover:bg-primary/10"
-                }
-              }}
-            />
-          ) : (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onSignInClick}
-              className="flex items-center gap-2 text-xs sm:text-sm px-3 sm:px-4 py-2"
-            >
-              <LogIn className="w-4 h-4" />
-              <span className="hidden xs:inline">Sign In</span>
-            </Button>
-          )}
         </div>
       </div>
 

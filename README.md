@@ -7,7 +7,9 @@ A comprehensive AI-powered Smart Crop Advisory System designed for small and mar
 ## 🌟 Features
 
 ### Core Features Implemented
-- **🔐 User Authentication**: Complete signup/login system with JWT authentication via Supabase
+- **🔐 Clerk Authentication**: Professional authentication flow with agricultural-themed UI
+- **🌐 Language Selection**: Pre-auth language selection (Hindi, Punjabi, English) with persistent preferences
+- **👤 User Management**: Complete user profiles with metadata storage
 - **📸 Soil Photo Upload**: Drag-drop and camera capture with AI-powered soil analysis
 - **🤖 AI Prediction System**: CNN-based soil analysis and crop recommendations
 - **🗣️ Multilingual AI Chatbot**: Voice-first interface supporting Hindi, Punjabi, and English
@@ -33,6 +35,7 @@ A comprehensive AI-powered Smart Crop Advisory System designed for small and mar
 - **React 18** with TypeScript
 - **Vite** for build tooling
 - **Tailwind CSS** with custom agricultural design system
+- **Clerk Authentication** with agricultural-themed components
 - **PWA Support** with Service Worker
 - **Shadcn/ui** components with custom variants
 - **Web Speech API** for voice functionality

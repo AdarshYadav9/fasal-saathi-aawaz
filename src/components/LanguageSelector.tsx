@@ -19,11 +19,11 @@ const languages: Language[] = [
 ];
 
 interface LanguageSelectorProps {
-  onLanguageSelect: (language: Language) => void;
+  selectedLanguage: string;
+  onLanguageChange: (language: string) => void;
 }
 
-export const LanguageSelector = ({ onLanguageSelect }: LanguageSelectorProps) => {
-  const [selectedLanguage, setSelectedLanguage] = useState<Language | null>(null);
+export const LanguageSelector = ({ selectedLanguage, onLanguageChange }: LanguageSelectorProps) => {
 
   const translations = {
     en: {
@@ -64,54 +64,59 @@ export const LanguageSelector = ({ onLanguageSelect }: LanguageSelectorProps) =>
     },
   };
 
-  const t = translations[selectedLanguage?.code as keyof typeof translations] || translations.en;
+  const currentLanguage = languages.find(lang => lang.code === selectedLanguage) || languages[0];
+  const t = translations[selectedLanguage as keyof typeof translations] || translations.en;
 
   const handleLanguageSelect = (language: Language) => {
-    setSelectedLanguage(language);
-    onLanguageSelect(language);
+    onLanguageChange(language.code);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-sky flex items-center justify-center p-4">
-      <Card className="w-full max-w-md md:max-w-lg p-8 text-center shadow-strong">
-        <div className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-2">
-            🌾 {t.smartCropAdvisory}
-          </h1>
-          <p className="text-sm sm:text-base text-muted-foreground">
-            {t.chooseLanguage}
-          </p>
-          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-            {t.chooseLanguageNative}
-          </p>
-        </div>
+    <div className="space-y-3">
+      <div className="text-center">
+        <h3 className="font-poppins font-semibold text-sm text-foreground mb-1">
+          {selectedLanguage === 'hi' ? 'भाषा चुनें' :
+           selectedLanguage === 'pa' ? 'ਭਾਸ਼ਾ ਚੁਣੋ' :
+           'Choose Language'}
+        </h3>
+        <p className="text-xs text-muted-foreground font-inter">
+          {selectedLanguage === 'hi' ? 'अपनी पसंदीदा भाषा' :
+           selectedLanguage === 'pa' ? 'ਆਪਣੀ ਪਸੰਦੀਦਾ ਭਾਸ਼ਾ' :
+           'Your preferred language'}
+        </p>
+      </div>
 
-        <div className="space-y-3">
-          {languages.map((language) => (
-            <Button
-              key={language.code}
-              variant={selectedLanguage?.code === language.code ? "field" : "outline"}
-              size="lg"
-              className="w-full justify-start gap-4 h-auto py-3"
-              onClick={() => handleLanguageSelect(language)}
-            >
-              <span className="text-xl sm:text-2xl">{language.flag}</span>
-              <div className="text-left">
-                <div className="font-semibold text-base sm:text-lg">{language.nativeName}</div>
-                <div className="text-xs sm:text-sm opacity-80">{language.name}</div>
-              </div>
-            </Button>
-          ))}
-        </div>
+      <div className="grid grid-cols-3 gap-2">
+        {languages.map((language) => (
+          <Button
+            key={language.code}
+            variant={selectedLanguage === language.code ? "default" : "outline"}
+            size="sm"
+            className={`h-auto py-3 px-2 flex flex-col items-center gap-1 transition-all duration-300 ${
+              selectedLanguage === language.code 
+                ? 'bg-gradient-field text-white shadow-medium' 
+                : 'hover:bg-muted/50'
+            }`}
+            onClick={() => handleLanguageSelect(language)}
+          >
+            <span className="text-lg">{language.flag}</span>
+            <div className="text-center">
+              <div className="font-inter font-medium text-xs">{language.nativeName}</div>
+              <div className="text-xs opacity-70">{language.name}</div>
+            </div>
+          </Button>
+        ))}
+      </div>
 
-        {selectedLanguage && (
-          <div className="mt-6 p-4 bg-success/10 rounded-lg border border-success/20">
-            <p className="text-xs sm:text-sm text-success-foreground">
-              {t.languageSelected} {selectedLanguage.nativeName}
-            </p>
-          </div>
-        )}
-      </Card>
+      {currentLanguage && (
+        <div className="flex items-center justify-center gap-2 p-2 bg-success/10 rounded-lg border border-success/20">
+          <span className="text-xs font-inter text-success font-medium">
+            {selectedLanguage === 'hi' ? 'चयनित:' :
+             selectedLanguage === 'pa' ? 'ਚੁਣਿਆ:' :
+             'Selected:'} {currentLanguage.nativeName}
+          </span>
+        </div>
+      )}
     </div>
   );
 };

@@ -4,16 +4,12 @@ import { LanguageSelector } from '@/components/LanguageSelector';
 import { Navigation } from '@/components/Navigation';
 import { BottomNavigation } from '@/components/BottomNavigation';
 import { Dashboard } from '@/components/Dashboard';
-import { VoiceChatbot } from '@/components/VoiceChatbot';
-import { CropRecommendation } from '@/components/CropRecommendation';
-import { PestDetection } from '@/components/PestDetection';
-import { SoilUpload } from '@/components/SoilUpload';
+import VoiceAssistant from '@/components/VoiceAssistant';
+import CropRecommendation from '@/components/CropRecommendation';
+import PestDetection from '@/components/PestDetection';
+import WelcomeScreen from '@/components/WelcomeScreen';
 import MarketPrices from '@/components/MarketPrices';
-import { ClerkAuthModal } from '@/components/ClerkAuthModal';
-import { useClerkAuth } from '@/contexts/ClerkAuthContext';
-import { Button } from '@/components/ui/button';
-import { LogIn, User } from 'lucide-react';
-import { UserButton } from '@clerk/clerk-react';
+import { useLanguagePreference } from '@/hooks/useLanguagePreference';
 
 interface Language {
   code: string;
@@ -23,11 +19,10 @@ interface Language {
 }
 
 const Index = () => {
-  const { user, isSignedIn, isLoaded } = useClerkAuth();
   const location = useLocation();
-  const [selectedLanguage, setSelectedLanguage] = useState<Language | null>(null);
+  const { selectedLanguage, updateLanguage } = useLanguagePreference();
   const [currentView, setCurrentView] = useState('home');
-  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [hasSelectedLanguage, setHasSelectedLanguage] = useState(false);
 
   // Handle routing based on URL
   useEffect(() => {
@@ -45,16 +40,13 @@ const Index = () => {
     }
   }, [location.pathname]);
 
-  const handleLanguageSelect = (language: Language) => {
-    setSelectedLanguage(language);
+  const handleLanguageChange = (language: string) => {
+    updateLanguage(language);
+    setHasSelectedLanguage(true);
   };
 
   const handleViewChange = (view: string) => {
     setCurrentView(view);
-  };
-
-  const handleAuthSuccess = () => {
-    setShowAuthModal(false);
   };
 
   const handleVoiceInput = () => {
@@ -67,53 +59,41 @@ const Index = () => {
     console.log('Text-to-speech activated');
   };
 
-  if (!isLoaded) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!selectedLanguage) {
-    return <LanguageSelector onLanguageSelect={handleLanguageSelect} />;
+  // Show welcome screen with language selection first if not selected
+  if (!hasSelectedLanguage) {
+    return <WelcomeScreen onLanguageSelected={() => setHasSelectedLanguage(true)} />;
   }
 
   const renderCurrentView = () => {
     switch (currentView) {
       case 'home':
         return <Dashboard 
-          language={selectedLanguage.code} 
+          language={selectedLanguage} 
           onNavigate={handleViewChange} 
-          user={user}
           onVoiceInput={handleVoiceInput}
           onTextToSpeech={handleTextToSpeech}
         />;
       case 'chatbot':
-        return <VoiceChatbot language={selectedLanguage.code} />;
-      case 'recommendations':
-        return <CropRecommendation language={selectedLanguage.code} />;
-      case 'pest-detection':
-        return <PestDetection language={selectedLanguage.code} />;
-      case 'market-prices':
-        return <MarketPrices language={selectedLanguage.code} />;
-      case 'soil-upload':
-        return <SoilUpload
-          language={selectedLanguage.code}
-          onUpload={async (file) => {
-            // Mock upload function - replace with actual API call
-            console.log('Uploading file:', file);
-            await new Promise(resolve => setTimeout(resolve, 2000));
-          }}
+        return <VoiceAssistant 
+          language={selectedLanguage} 
+          onNavigate={handleViewChange} 
         />;
+      case 'recommendations':
+        return <CropRecommendation 
+          language={selectedLanguage} 
+          onBack={() => setCurrentView('home')} 
+        />;
+      case 'pest-detection':
+        return <PestDetection 
+          language={selectedLanguage} 
+          onBack={() => setCurrentView('home')} 
+        />;
+      case 'market-prices':
+        return <MarketPrices language={selectedLanguage} />;
       default:
         return <Dashboard 
-          language={selectedLanguage.code} 
+          language={selectedLanguage} 
           onNavigate={handleViewChange} 
-          user={user}
           onVoiceInput={handleVoiceInput}
           onTextToSpeech={handleTextToSpeech}
         />;
@@ -121,33 +101,24 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-base">
+    <div className="min-h-screen bg-gradient-to-br from-sky-50 via-background to-forest-50 text-base">
       <div className="w-full max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-4">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
           <div className="w-full sm:w-auto">
             <Navigation
               currentView={currentView}
               onViewChange={handleViewChange}
-              language={selectedLanguage.code}
-              isSignedIn={isSignedIn}
-              onSignInClick={() => setShowAuthModal(true)}
+              language={selectedLanguage}
             />
           </div>
         </div>
         {renderCurrentView()}
 
-        <ClerkAuthModal
-          isOpen={showAuthModal}
-          onClose={() => setShowAuthModal(false)}
-          onSuccess={handleAuthSuccess}
-          language={selectedLanguage.code}
-        />
-
         {/* Bottom Navigation */}
         <BottomNavigation
           currentView={currentView}
           onViewChange={handleViewChange}
-          language={selectedLanguage.code}
+          language={selectedLanguage}
           onVoiceInput={handleVoiceInput}
           onTextToSpeech={handleTextToSpeech}
         />

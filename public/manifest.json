@@ -9,19 +9,19 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/favicon.ico",
+      "src": "/favicon.svg",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/svg+xml"
     },
     {
-      "src": "/icon-192x192.png",
-      "type": "image/png",
+      "src": "/icon-192x192.svg",
+      "type": "image/svg+xml",
       "sizes": "192x192",
       "purpose": "any maskable"
     },
     {
-      "src": "/icon-512x512.png",
-      "type": "image/png", 
+      "src": "/icon-512x512.svg",
+      "type": "image/svg+xml", 
       "sizes": "512x512",
       "purpose": "any maskable"
     }
@@ -34,8 +34,8 @@
   "scope": "/",
   "screenshots": [
     {
-      "src": "/screenshot-mobile.png",
-      "type": "image/png",
+      "src": "/screenshot-mobile.svg",
+      "type": "image/svg+xml",
       "sizes": "540x720",
       "label": "Smart Crop Advisory Dashboard"
     }
@@ -48,7 +48,7 @@
       "url": "/?view=soil-upload",
       "icons": [
         {
-          "src": "/icon-192x192.png",
+          "src": "/icon-192x192.svg",
           "sizes": "192x192"
         }
       ]
@@ -60,7 +60,7 @@
       "url": "/?view=recommendations",
       "icons": [
         {
-          "src": "/icon-192x192.png",
+          "src": "/icon-192x192.svg",
           "sizes": "192x192"
         }
       ]
@@ -72,7 +72,7 @@
       "url": "/?view=market-prices",
       "icons": [
         {
-          "src": "/icon-192x192.png",
+          "src": "/icon-192x192.svg",
           "sizes": "192x192"
         }
       ]
